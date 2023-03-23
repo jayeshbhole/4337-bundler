@@ -1,6 +1,6 @@
 {
-  "name": "@account-abstraction/sdk",
-  "version": "0.5.0",
+  "name": "@humanwallet/sdk",
+  "version": "0.5.1",
   "main": "./dist/src/index.js",
   "license": "MIT",
   "files": [
@@ -24,6 +24,7 @@
     "@ethersproject/networks": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.0",
+    "@humanwallet/contracts": "^0.5.0",
     "@types/debug": "^4.1.7",
     "debug": "^4.3.4",
     "ethers": "^5.7.0"

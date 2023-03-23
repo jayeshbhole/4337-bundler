@@ -1,4 +1,5 @@
 export { SimpleAccountAPI } from './SimpleAccountAPI'
+export { HumanAccountAPI } from './HumanAccountAPI'
 export { PaymasterAPI } from './PaymasterAPI'
 export { wrapProvider } from './Provider'
 export { ERC4337EthersSigner } from './ERC4337EthersSigner'

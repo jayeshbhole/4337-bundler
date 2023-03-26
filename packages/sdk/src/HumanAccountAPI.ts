@@ -74,9 +74,11 @@ export class HumanAccountAPI extends BaseAccountAPI {
       }
     }
 
+    const ownerAddress = await this.owner.getAddress()
+
     return hexConcat([
       this.factory.address,
-      this.factory.interface.encodeFunctionData('createAccount', [this.username, this.index, await this.owner.getAddress()])
+      this.factory.interface.encodeFunctionData('createAccount', [this.username, this.index, ownerAddress])
     ])
   }
 
@@ -107,5 +109,14 @@ export class HumanAccountAPI extends BaseAccountAPI {
 
   async signUserOpHash (userOpHash: string): Promise<string> {
     return await this.signer.signMessage(arrayify(userOpHash))
+  }
+
+  // overrides
+  /**
+   * return maximum gas used for verification.
+   * NOTE: createUnsignedUserOp will add to this value the cost of creation, if the contract is not yet created.
+   */
+  async getVerificationGasLimit (): Promise<BigNumberish> {
+    return 150000
   }
 }

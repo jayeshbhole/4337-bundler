@@ -16,7 +16,8 @@ import { BaseApiParams, BaseAccountAPI } from './BaseAccountAPI'
  * @param index nonce value used when creating multiple accounts for the same owner
  */
 export interface HumanAccountApiParams extends BaseApiParams {
-  owner: Signer
+  owner?: Signer
+  ownerAddress: string
   factoryAddress?: string
   index?: BigNumberish
   username: string
@@ -32,7 +33,8 @@ export interface HumanAccountApiParams extends BaseApiParams {
  */
 export class HumanAccountAPI extends BaseAccountAPI {
   factoryAddress?: string
-  owner: Signer
+  owner?: Signer
+  ownerAddress: string
   index: BigNumberish
   username: string
   signer: Signer
@@ -48,7 +50,10 @@ export class HumanAccountAPI extends BaseAccountAPI {
   constructor (params: HumanAccountApiParams) {
     super(params)
     this.factoryAddress = params.factoryAddress
-    this.owner = params.owner
+    this.ownerAddress = params.ownerAddress
+    if (params.owner != null) {
+      this.owner = params.owner
+    }
     this.index = BigNumber.from(params.index ?? 0)
     this.username = params.username
     this.signer = params.signer
@@ -74,11 +79,9 @@ export class HumanAccountAPI extends BaseAccountAPI {
       }
     }
 
-    const ownerAddress = await this.owner.getAddress()
-
     return hexConcat([
       this.factory.address,
-      this.factory.interface.encodeFunctionData('createAccount', [this.username, this.index, ownerAddress])
+      this.factory.interface.encodeFunctionData('createAccount', [this.username, this.index, this.ownerAddress])
     ])
   }
 
